@@ -5,7 +5,7 @@
     "description": "CSE 341 Project 2",
     "version": "1.0.0"
   },
-  "host": "cse341lmyersattempt2.herokuapp.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "tags": [
     {
@@ -15,10 +15,14 @@
     {
       "name": "User",
       "description": "Operations for Users"
+    },
+    {
+      "name": "Instructor",
+      "description": "Operations for Instructors"
     }
   ],
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/api-docs": {
@@ -30,6 +34,9 @@
     },
     "/user/": {
       "get": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -42,6 +49,9 @@
         }
       },
       "post": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -75,6 +85,9 @@
     },
     "/user/{username}": {
       "get": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -94,6 +107,9 @@
         }
       },
       "put": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -137,6 +153,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -159,12 +178,76 @@
         }
       }
     },
+    "/student/": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/student/{studentid}": {
       "get": {
+        "tags": [
+          "Student"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "studentid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/instructor/": {
+      "get": {
+        "tags": [
+          "Instructor"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/instructor/{id}": {
+      "get": {
+        "tags": [
+          "Instructor"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"

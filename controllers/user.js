@@ -3,7 +3,7 @@ const User = db.user;
 const passwordUtil = require('../helpers/passwordComplexityCheck');
 
 module.exports.create = (req, res) => {
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   try {
     if (!req.body.username || !req.body.password) {
       res.status(400).send({ message: 'Content can not be empty!' });
@@ -33,6 +33,7 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.getAll = (req, res) => {
+  // #swagger.tags = ['User']
   try {
     User.find({})
       .then((data) => {
@@ -49,6 +50,7 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.getUser = (req, res) => {
+  // #swagger.tags = ['User']
   try {
     const username = req.params.username;
     User.find({ username: username })
@@ -66,6 +68,7 @@ module.exports.getUser = (req, res) => {
 };
 
 module.exports.updateUser = async (req, res) => {
+  // #swagger.tags = ['User']
   try {
     const username = req.params.username;
     if (!username) {
@@ -98,6 +101,7 @@ module.exports.updateUser = async (req, res) => {
 };
 
 module.exports.deleteUser = async (req, res) => {
+  // #swagger.tags = ['User']
   try {
     const username = req.params.username;
     if (!username) {
