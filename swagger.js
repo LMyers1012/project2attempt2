@@ -5,8 +5,8 @@ const doc = {
     title: 'Lindsey Myers - API',
     description: 'CSE 341 Project 2'
   },
-  host: 'cse341lmyerstest.herokuapp.com',
-  schemes: ['https'],
+  host: 'localhost:8080',
+  schemes: ['http'],
   tags: [
     {
       name: 'Student',
@@ -20,7 +20,7 @@ const doc = {
 };
 
 const outputFile = './swagger-output.json';
-const endpointsFiles = ['./backend/routes/index.js'];
+const endpointsFiles = ['./routes/index.js'];
 
 /* NOTE: if you use the express Router, you must pass in the 
    'endpointsFiles' only the root file where the route starts,
