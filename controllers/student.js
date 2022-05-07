@@ -2,7 +2,9 @@ const { ObjectId } = require('mongodb');
 const db = require('../models');
 const Student = db.student;
 
-exports.getStudent = (req, res) => {
+const getAllStudents = async (req, res, next) => {};
+
+const getStudent = (req, res) => {
   const studentId = ObjectId(req.params.studentid);
   Student.find({ _id: studentId })
     .then((data) => {
@@ -16,3 +18,5 @@ exports.getStudent = (req, res) => {
       });
     });
 };
+
+module.exports = { getAllStudents, getStudent };
