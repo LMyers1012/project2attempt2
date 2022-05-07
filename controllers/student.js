@@ -67,7 +67,7 @@ const createNewStudent = (req, res) => {
 };
 
 const updateStudentById = async (req, res) => {
-  // #swagger.tags = ['User']
+  // #swagger.tags = ['Student']
   try {
     const studentId = ObjectId(req.params.studentid);
     if (!studentId) {
@@ -95,4 +95,30 @@ const updateStudentById = async (req, res) => {
   }
 };
 
-module.exports = { getAllStudents, getStudent, createNewStudent, updateStudentById };
+const deleteStudentById = async (req, res) => {
+  // #swagger.tags = ['Student']
+  try {
+    const studentId = ObjectId(req.params.studentid);
+    if (!studentId) {
+      res.status(400).send({ message: 'Invalid student ID supplied.' });
+      return;
+    }
+    Student.deleteOne({ _id: studentId }, function (err, result) {
+      if (err) {
+        res.status(500).json(err || 'Some error occurred while deleting the student.');
+      } else {
+        res.status(204).send(result);
+      }
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+module.exports = {
+  getAllStudents,
+  getStudent,
+  createNewStudent,
+  updateStudentById,
+  deleteStudentById
+};
