@@ -12,7 +12,7 @@ const getAllStudents = async (req, res, next) => {
       })
       .catch((err) => {
         res.status(500).send({
-          message: err.message || 'Some error occurred while retrieving students.'
+          message: err.message || 'An error occurred while retrieving students.'
         });
       });
   } catch (err) {
@@ -25,12 +25,12 @@ const getStudent = (req, res) => {
   const studentId = ObjectId(req.params.studentid);
   Student.find({ _id: studentId })
     .then((data) => {
-      if (!data) res.status(404).send({ message: 'Not found student with id: ' + studentId });
+      if (!data) res.status(404).send({ message: 'No student found with id: ' + studentId });
       else res.send(data[0]);
     })
     .catch((err) => {
       res.status(500).send({
-        message: 'Error retrieving theme with id=' + studentId,
+        message: 'Error retrieving student with id=' + studentId,
         error: err
       });
     });
@@ -84,7 +84,7 @@ const updateStudentById = async (req, res) => {
       student.parentName = req.body.parentName;
       student.save(function (err) {
         if (err) {
-          res.status(500).json(err || 'Some error occurred while updating the student.');
+          res.status(500).json(err || 'An error occurred while updating the student.');
         } else {
           res.status(204).send();
         }
@@ -105,7 +105,7 @@ const deleteStudentById = async (req, res) => {
     }
     Student.deleteOne({ _id: studentId }, function (err, result) {
       if (err) {
-        res.status(500).json(err || 'Some error occurred while deleting the student.');
+        res.status(500).json(err || 'An error occurred while deleting the student.');
       } else {
         res.status(204).send(result);
       }
