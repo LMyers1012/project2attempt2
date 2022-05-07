@@ -66,4 +66,33 @@ const createNewStudent = (req, res) => {
   }
 };
 
-module.exports = { getAllStudents, getStudent, createNewStudent };
+const updateStudentById = async (req, res) => {
+  // #swagger.tags = ['User']
+  try {
+    const studentId = ObjectId(req.params.studentid);
+    if (!studentId) {
+      res.status(400).send({ message: 'Invalid student ID supplied.' });
+      return;
+    }
+    Student.findOne({ _id: studentId }, function (err, student) {
+      student.firstName = req.body.firstName;
+      student.lastName = req.body.lastName;
+      student.birthday = req.body.birthday;
+      student.beltLevel = req.body.beltLevel;
+      student.classGroup = req.body.classGroup;
+      student.instructor = req.body.instructor;
+      student.parentName = req.body.parentName;
+      student.save(function (err) {
+        if (err) {
+          res.status(500).json(err || 'Some error occurred while updating the student.');
+        } else {
+          res.status(204).send();
+        }
+      });
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+module.exports = { getAllStudents, getStudent, createNewStudent, updateStudentById };
