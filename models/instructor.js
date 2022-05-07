@@ -17,13 +17,13 @@ module.exports = (mongoose) => {
         type: String
       },
       style: {
-        type: String
+        type: [String]
       },
       isTeaching: {
         type: Boolean
       },
       classes: {
-        type: String
+        type: [String]
       }
     })
   );
