@@ -2,7 +2,42 @@ const db = require('../models');
 const User = db.user;
 const passwordUtil = require('../helpers/passwordComplexityCheck');
 
-module.exports.create = (req, res) => {
+const getAllUsers = (req, res) => {
+  // #swagger.tags = ['User']
+  try {
+    User.find({})
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving users.'
+        });
+      });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const getUserByName = (req, res) => {
+  // #swagger.tags = ['User']
+  try {
+    const username = req.params.username;
+    User.find({ username: username })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving users.'
+        });
+      });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const createNewUser = (req, res) => {
   // #swagger.tags = ['User']
   try {
     if (!req.body.username || !req.body.password) {
@@ -32,42 +67,7 @@ module.exports.create = (req, res) => {
   }
 };
 
-module.exports.getAll = (req, res) => {
-  // #swagger.tags = ['User']
-  try {
-    User.find({})
-      .then((data) => {
-        res.status(200).send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || 'Some error occurred while retrieving users.'
-        });
-      });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-module.exports.getUser = (req, res) => {
-  // #swagger.tags = ['User']
-  try {
-    const username = req.params.username;
-    User.find({ username: username })
-      .then((data) => {
-        res.status(200).send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || 'Some error occurred while retrieving users.'
-        });
-      });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-module.exports.updateUser = async (req, res) => {
+const updateUserById = async (req, res) => {
   // #swagger.tags = ['User']
   try {
     const username = req.params.username;
@@ -100,7 +100,7 @@ module.exports.updateUser = async (req, res) => {
   }
 };
 
-module.exports.deleteUser = async (req, res) => {
+const deleteUserById = async (req, res) => {
   // #swagger.tags = ['User']
   try {
     const username = req.params.username;
@@ -118,4 +118,12 @@ module.exports.deleteUser = async (req, res) => {
   } catch (err) {
     res.status(500).json(err || 'Some error occurred while deleting the contact.');
   }
+};
+
+module.exports = {
+  getAllUsers,
+  getUserByName,
+  createNewUser,
+  updateUserById,
+  deleteUserById
 };
