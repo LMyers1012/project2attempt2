@@ -1,8 +1,9 @@
 const db = require('../models');
 const User = db.user;
-const passwordUtil = require('../util/passwordComplexityCheck');
+const passwordUtil = require('../helpers/passwordComplexityCheck');
 
 module.exports.create = (req, res) => {
+  // #swagger.tags = ['Users']
   try {
     if (!req.body.username || !req.body.password) {
       res.status(400).send({ message: 'Content can not be empty!' });
