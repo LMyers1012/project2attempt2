@@ -44,6 +44,7 @@ const createNewInstructor = (req, res) => {
       !req.body.birthday ||
       !req.body.beltLevel ||
       !req.body.style ||
+      !req.body.classes ||
       !req.body.isTeaching
     ) {
       res.status(400).send({ message: 'Content cannot be empty.' });
