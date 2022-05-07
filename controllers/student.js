@@ -1,3 +1,4 @@
+const read = require('body-parser/lib/read');
 const { ObjectId } = require('mongodb');
 const db = require('../models');
 const Student = db.student;
@@ -35,4 +36,34 @@ const getStudent = (req, res) => {
     });
 };
 
-module.exports = { getAllStudents, getStudent };
+const createNewStudent = (req, res) => {
+  // #swagger.tags = ['Student']
+  try {
+    if (
+      !req.body.firstName ||
+      !req.body.lastName ||
+      !req.body.birthday ||
+      !req.body.beltLevel ||
+      !req.body.parentName
+    ) {
+      res.status(400).send({ message: 'Content cannot be empty.' });
+      return;
+    }
+    const student = new Student(req.body);
+    student
+      .save()
+      .then((data) => {
+        console.log(data);
+        res.status(201).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || 'An error occurred while creating the student.'
+        });
+      });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+module.exports = { getAllStudents, getStudent, createNewStudent };

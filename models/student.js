@@ -20,10 +20,7 @@ module.exports = (mongoose) => {
       instructor: {
         type: String
       },
-      parentFirstName: {
-        type: String
-      },
-      parentLastName: {
+      parentName: {
         type: String
       }
     })

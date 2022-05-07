@@ -1,3 +1,5 @@
+const { boolean } = require('joi');
+
 module.exports = (mongoose) => {
   const Instructor = mongoose.model(
     'instructors',
@@ -17,8 +19,8 @@ module.exports = (mongoose) => {
       style: {
         type: String
       },
-      strengths: {
-        type: String
+      isTeaching: {
+        type: Boolean
       },
       classes: {
         type: String
